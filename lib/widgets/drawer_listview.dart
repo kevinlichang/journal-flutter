@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:journal/app.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({Key? key}) : super(key: key);
@@ -25,17 +26,25 @@ class DarkModeSwitch extends StatefulWidget {
 }
 
 class _DarkModeSwitchState extends State<DarkModeSwitch> {
-  bool _dark = false;
+  late bool dark;
 
   @override
   Widget build(BuildContext context) {
+    AppState? appState = context.findAncestorStateOfType<AppState>();
+
+    if (appState!.getTheme() == ThemeData.light()) {
+      dark = false;
+    } else {
+      dark = true;
+    }
+
     return SwitchListTile(
-      value: _dark,
+      value: dark,
       title: const Text('Dark Mode'),
       onChanged: (bool value) {
         setState(() {
-          _dark = value;
-          print(value);
+          dark = value;
+          appState.updateTheme(dark);
         });
       },
       secondary: const Icon(Icons.nightlight_outlined),

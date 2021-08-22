@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/drawer_list_view.dart';
+import '../widgets/drawer_listview.dart';
 import 'package:journal/widgets/journal_entry_form.dart';
 
 class AddNewScreen extends StatelessWidget {
@@ -9,6 +9,10 @@ class AddNewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.arrow_back),
+        ),
         title: const Text('Add New Journal Entry'),
         centerTitle: true,
       ),
