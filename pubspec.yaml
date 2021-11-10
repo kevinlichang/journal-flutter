@@ -38,6 +38,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/book.png
+    - assets/journal.png
     - assets/schema_1.sql.txt
 

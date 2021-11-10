@@ -15,7 +15,7 @@ class JournalEntryFormState extends State<JournalEntryForm> {
   final _formKey = GlobalKey<FormState>();
   final journalEntryFields = JournalEntryFields();
   int selectedValue = 1;
-  List<int> ratingList = [1, 2, 3, 4];
+  List<int> ratingList = [1, 2, 3, 4, 5];
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +70,8 @@ class JournalEntryFormState extends State<JournalEntryForm> {
                 child: DropdownButtonFormField<int>(
                   value: selectedValue,
                   validator: (value) {
-                    if (value! < 1 || value > 4) {
-                      return 'Please enter 1 to 4';
+                    if (value! < 1 || value > 5) {
+                      return 'Please enter 1 to 5';
                     }
                     return null;
                   },

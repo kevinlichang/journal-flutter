@@ -9,10 +9,10 @@ Widget welcome(BuildContext context) {
           widthFactor: 0.5,
           child: Padding(
             padding: EdgeInsets.all(2),
-            child: Image.asset('assets/book.png'),
+            child: Image.asset('assets/journal.png'),
           ),
         ),
-        Text('Welcome!'),
+        Text('Welcome! Write something cool!', textScaleFactor: 1.3,)
       ],
     ),
   );
