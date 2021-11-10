@@ -28,7 +28,7 @@ class JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
   }
 
   void loadJournal() async {
-    await deleteDatabase(join(await getDatabasesPath(), 'journal.sqlit3.db'));
+    // await deleteDatabase(join(await getDatabasesPath(), 'journal.sqlit3.db'));
 
     String schema = await rootBundle.loadString('assets/schema_1.sql.txt');
 
