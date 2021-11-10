@@ -28,7 +28,7 @@ class JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
   }
 
   void loadJournal() async {
-    // await deleteDatabase(join(await getDatabasesPath(), 'journal.sqlit3.db'));
+    await deleteDatabase(join(await getDatabasesPath(), 'journal.sqlit3.db'));
 
     String schema = await rootBundle.loadString('assets/schema_1.sql.txt');
 
@@ -40,8 +40,8 @@ class JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
       version: 1,
     );
 
-    List<Map> journalRecords =
-        await database.rawQuery('SELECT * FROM journal_entries');
+    List<Map> journalRecords = await database
+        .rawQuery('SELECT * FROM journal_entries ORDER BY date DESC');
 
     final journalEntries = journalRecords.map((record) {
       return JournalEntryFields(
@@ -63,13 +63,17 @@ class JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
   Widget build(BuildContext context) {
     return JournalScaffold(
       title: journal.isEmpty() ? 'Welcome' : 'Journal Entries',
-      child:
-          journal.isEmpty() ? welcome(context) : LayoutDecider(leftScreen: journalList(context, journal), rightScreen: horizontalDetails(context, currentEntry)) ,
+      child: journal.isEmpty()
+          ? welcome(context)
+          : LayoutDecider(
+              leftScreen: journalList(context, journal),
+              rightScreen: horizontalDetails(context, currentEntry)),
     );
   }
 
   Widget journalList(BuildContext context, Journal journal) {
-    return ListView.builder(
+    return ListView.separated(
+      itemCount: journal.entries.length,
       itemBuilder: (context, index) {
         return ListTile(
           title: Text('${journal.entries[index].title}'),
@@ -81,12 +85,19 @@ class JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                 currentEntry = journal.entries[index];
               });
             } else {
-              Navigator.pushNamed(context, '/details', arguments: journal.entries[index]);
+              Navigator.pushNamed(context, '/details',
+                  arguments: journal.entries[index]);
             }
           },
         );
       },
-      itemCount: journal.entries.length,
+      separatorBuilder: (context, index) {
+        return Divider(
+          color: Colors.grey,
+          indent: 10,
+          endIndent: 10,
+        );
+      },
     );
   }
 
@@ -122,6 +133,5 @@ class JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
         )
       ],
     );
-  }  
+  }
 }
-

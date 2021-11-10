@@ -26,67 +26,78 @@ class JournalEntryFormState extends State<JournalEntryForm> {
           key: _formKey,
           child: Column(
             children: [
-              TextFormField(
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  journalEntryFields.title = value!;
-                },
-                autofocus: true,
-                decoration: InputDecoration(
-                  labelText: 'Title',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              TextFormField(
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  journalEntryFields.body = value!;
-                },
-                decoration: InputDecoration(
-                  labelText: 'Body',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              DropdownButtonFormField<int>(
-                value: selectedValue,
-                validator: (value) {
-                  if (value! < 1 || value > 4) {
-                    return 'Please enter 1 to 4';
-                  }
-                  return null;
-                },
-                items: ratingList.map<DropdownMenuItem<int>>(
-                  (int value) {
-                    return DropdownMenuItem<int>(
-                      value: value,
-                      child: Text(value.toString()),
-                    );
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
                   },
-                ).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedValue = value!;
-                  });
-                },
-                onSaved: (value) {
-                  setState(() {
-                    journalEntryFields.rating = value!;
-                  });
-                },
-                decoration: InputDecoration(
-                  labelText: 'Rating',
-                  border: OutlineInputBorder(),
-                ),
+                  onSaved: (value) {
+                    journalEntryFields.title = value!;
+                  },
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    labelText: 'Title',
+                    border: OutlineInputBorder(),
+                  ),
+                )
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5), 
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    journalEntryFields.body = value!;
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Body',
+                    border: OutlineInputBorder(),
+                  ),
+                  minLines: 1,
+                  maxLines: 7,
+                )
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: DropdownButtonFormField<int>(
+                  value: selectedValue,
+                  validator: (value) {
+                    if (value! < 1 || value > 4) {
+                      return 'Please enter 1 to 4';
+                    }
+                    return null;
+                  },
+                  items: ratingList.map<DropdownMenuItem<int>>(
+                    (int value) {
+                      return DropdownMenuItem<int>(
+                        value: value,
+                        child: Text(value.toString()),
+                      );
+                    },
+                  ).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedValue = value!;
+                    });
+                  },
+                  onSaved: (value) {
+                    setState(() {
+                      journalEntryFields.rating = value!;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Rating',
+                    border: OutlineInputBorder(),
+                  ),
+                )
               ),
               ElevatedButton(
                 onPressed: () async {
